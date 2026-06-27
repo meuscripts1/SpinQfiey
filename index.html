@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpinQfiey</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
         
         :root {
             --bg: #0a0a0a;
@@ -71,10 +71,6 @@
         
         .nav li:hover, .nav li.active {
             background: #282828;
-        }
-        
-        .nav li i {
-            font-size: 22px;
         }
         
         .main {
@@ -282,7 +278,6 @@
             width: 200px;
         }
         
-        /* Speed controls */
         .speed-controls {
             display: flex;
             gap: 8px;
@@ -341,7 +336,7 @@
             <div style="margin-top: auto;">
                 <div style="background: #282828; padding: 20px; border-radius: 12px;">
                     <p style="font-size: 15px; margin-bottom: 12px;">Crie sua própria playlist</p>
-                    <button onclick="alert('Playlist criada! (demo)')" style="background: white; color: black; border: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; cursor: pointer;">Nova Playlist</button>
+                    <button onclick="alert('Versão demo não funcionando mais em breve! 🚀')" style="background: white; color: black; border: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; cursor: pointer;">Nova Playlist</button>
                 </div>
             </div>
         </div>
@@ -356,6 +351,15 @@
             </div>
             
             <h1 class="greeting">Boa noite, ouvinte 🎵</h1>
+            
+            <!-- Update Box -->
+            <div style="background: #1f1f1f; border: 1px solid #1db954; border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
+                <div style="background: #1db954; color: black; padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600;">NOVO</div>
+                <div>
+                    <strong>Atualização:</strong> Adicionada a hit "A preguiça está demais" do Jenylson Júnior! 
+                    <span style="color: #1db954; cursor: pointer;" onclick="alert('Mais atualizações em breve!')">Ver todas atualizações →</span>
+                </div>
+            </div>
             
             <!-- Featured -->
             <div class="section">
@@ -417,11 +421,9 @@
     </div>
     
     <audio id="audio-player" ontimeupdate="updateProgress()" onended="nextTrack()">
-        <!-- Sources added by JS -->
     </audio>
     
     <script>
-        // Sample songs data
         const songs = [
             {
                 id: 1,
@@ -458,6 +460,15 @@
                 duration: "2:21",
                 cover: "https://picsum.photos/id/870/300/300",
                 src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+            },
+            {
+                id: 5,
+                title: "A preguiça está demais",
+                artist: "Jenylson Júnior",
+                album: "Viral TikTok",
+                duration: "1:01",
+                cover: "https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-p-0037/ogC42D5gIAcuvzBEfBkEsL87ZIDRgTF7pnB8Af~tplv-tiktokx-origin.image?dr=10395&x-expires=1782694800&x-signature=uoUK6im0PJFT1%2FQcRZ0h7gciKdA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a",
+                src: "https://www.tiktok.com/@jenylson_junior/video/7631226210860698896"
             }
         ];
         
@@ -478,8 +489,6 @@
             audio.src = song.src;
             audio.load();
             currentSongIndex = index;
-            
-            // Highlight in list
             updateSongList();
         }
         
@@ -498,7 +507,6 @@
             if (audio.duration) {
                 const progressPercent = (audio.currentTime / audio.duration) * 100;
                 progressBar.style.width = `${progressPercent}%`;
-                
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             }
         }
@@ -598,16 +606,13 @@
         function searchMusic(query) {
             if (!query) return;
             alert(`Buscando por "${query}"... (demo)`);
-            // Could filter songs here
         }
         
-        // Initialize
         window.onload = function() {
             renderFeatured();
             updateSongList();
             loadSong(0);
             
-            // Keyboard shortcuts
             document.addEventListener('keydown', (e) => {
                 if (e.code === 'Space') {
                     e.preventDefault();
@@ -619,4 +624,4 @@
         };
     </script>
 </body>
-</html
+</html>
