@@ -6,7 +6,7 @@
     <title>SpinQfiey</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
-        
+       
         :root {
             --bg: #0a0a0a;
             --sidebar: #121212;
@@ -14,29 +14,73 @@
             --text: #ffffff;
             --text-secondary: #b3b3b3;
         }
-        
+       
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+       
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
             height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow: hidden;
         }
-        
-        .app {
+
+        /* === LOGIN SCREEN === */
+        .login-screen {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.97);
             display: flex;
-            flex: 1;
-            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
         }
-        
+
+        .login-box {
+            background: #181818;
+            padding: 50px 60px;
+            border-radius: 20px;
+            text-align: center;
+            width: 420px;
+            border: 1px solid #333;
+        }
+
+        .logo-big {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            width: 100%;
+            margin: 20px 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: translateY(-2px);
+        }
+
+        .app { display: none; flex: 1; height: 100vh; overflow: hidden; }
+
+        /* Seus estilos originais continuam aqui */
         .sidebar {
             width: 260px;
             background: var(--sidebar);
@@ -45,7 +89,7 @@
             flex-direction: column;
             gap: 30px;
         }
-        
+       
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 32px;
@@ -53,11 +97,11 @@
             color: var(--accent);
             letter-spacing: -2px;
         }
-        
+       
         .nav {
             list-style: none;
         }
-        
+       
         .nav li {
             padding: 12px 16px;
             border-radius: 8px;
@@ -68,25 +112,25 @@
             align-items: center;
             gap: 16px;
         }
-        
+       
         .nav li:hover, .nav li.active {
             background: #282828;
         }
-        
+       
         .main {
             flex: 1;
             background: linear-gradient(180deg, #1f1f1f 0%, var(--bg) 30%);
             padding: 30px;
             overflow-y: auto;
         }
-        
+       
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
         }
-        
+       
         .search {
             background: rgba(255,255,255,0.1);
             border: none;
@@ -96,28 +140,28 @@
             color: white;
             font-size: 16px;
         }
-        
+       
         .greeting {
             font-size: 32px;
             font-weight: 600;
         }
-        
+       
         .section {
             margin-bottom: 50px;
         }
-        
+       
         .section-title {
             font-size: 26px;
             margin-bottom: 20px;
             font-weight: 600;
         }
-        
+       
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 24px;
         }
-        
+       
         .card {
             background: rgba(255,255,255,0.05);
             border-radius: 12px;
@@ -125,33 +169,33 @@
             transition: all 0.3s;
             cursor: pointer;
         }
-        
+       
         .card:hover {
             transform: translateY(-8px);
             background: rgba(255,255,255,0.1);
         }
-        
+       
         .card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
         }
-        
+       
         .card-info {
             padding: 16px;
         }
-        
+       
         .card-title {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 4px;
         }
-        
+       
         .card-subtitle {
             font-size: 14px;
             color: var(--text-secondary);
         }
-        
+       
         /* Player */
         .player {
             height: 90px;
@@ -163,30 +207,30 @@
             gap: 20px;
             z-index: 100;
         }
-        
+       
         .now-playing {
             display: flex;
             align-items: center;
             width: 300px;
             gap: 16px;
         }
-        
+       
         .now-playing img {
             width: 56px;
             height: 56px;
             border-radius: 6px;
             object-fit: cover;
         }
-        
+       
         .track-info h4 {
             font-size: 15px;
         }
-        
+       
         .track-info p {
             font-size: 13px;
             color: var(--text-secondary);
         }
-        
+       
         .controls {
             flex: 1;
             display: flex;
@@ -194,13 +238,13 @@
             align-items: center;
             gap: 8px;
         }
-        
+       
         .playback-buttons {
             display: flex;
             align-items: center;
             gap: 24px;
         }
-        
+       
         .btn {
             background: none;
             border: none;
@@ -209,12 +253,12 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+       
         .btn:hover {
             color: var(--accent);
             transform: scale(1.1);
         }
-        
+       
         .play-btn {
             background: white;
             color: black;
@@ -226,7 +270,7 @@
             justify-content: center;
             font-size: 20px;
         }
-        
+       
         .progress-container {
             width: 100%;
             max-width: 600px;
@@ -235,7 +279,7 @@
             gap: 12px;
             font-size: 13px;
         }
-        
+       
         .progress {
             flex: 1;
             height: 4px;
@@ -244,7 +288,7 @@
             position: relative;
             cursor: pointer;
         }
-        
+       
         .progress-bar {
             height: 100%;
             background: var(--accent);
@@ -252,7 +296,7 @@
             border-radius: 2px;
             position: relative;
         }
-        
+       
         .progress-bar::after {
             content: '';
             position: absolute;
@@ -266,24 +310,24 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
-        
+       
         .progress:hover .progress-bar::after {
             opacity: 1;
         }
-        
+       
         .volume {
             display: flex;
             align-items: center;
             gap: 8px;
             width: 200px;
         }
-        
+       
         .speed-controls {
             display: flex;
             gap: 8px;
             margin-top: 6px;
         }
-        
+       
         .speed-btn {
             font-size: 12px;
             padding: 4px 10px;
@@ -293,16 +337,16 @@
             color: var(--text-secondary);
             cursor: pointer;
         }
-        
+       
         .speed-btn.active {
             background: var(--accent);
             color: black;
         }
-        
+       
         .songs-list {
             margin-top: 40px;
         }
-        
+       
         .song-row {
             display: flex;
             align-items: center;
@@ -311,28 +355,45 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-        
+       
         .song-row:hover {
             background: #282828;
         }
-        
+       
         .song-row.playing {
             background: rgba(29, 185, 84, 0.2);
         }
     </style>
 </head>
 <body>
-    <div class="app">
+
+    <!-- LOGIN SCREEN -->
+    <div class="login-screen" id="login-screen">
+        <div class="login-box">
+            <div class="logo-big">SpinQfiey</div>
+            <h2>Bem-vindo de volta!</h2>
+            <p style="color: #b3b3b3; margin: 15px 0 40px;">Faça login para salvar suas músicas</p>
+            
+            <button class="discord-btn" onclick="loginWithDiscord()">
+                🔵 Entrar com Discord
+            </button>
+            
+            <p style="margin-top: 30px; color: #666; cursor: pointer;" onclick="fakeLogin()">Continuar sem login (demo)</p>
+        </div>
+    </div>
+
+    <!-- SEU APP ORIGINAL -->
+    <div class="app" id="main-app">
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">SpinQfiey</div>
-            
+           
             <ul class="nav">
                 <li class="active"><span>🏠</span> Início</li>
                 <li><span>🔍</span> Buscar</li>
                 <li><span>📚</span> Sua Biblioteca</li>
             </ul>
-            
+           
             <div style="margin-top: auto;">
                 <div style="background: #282828; padding: 20px; border-radius: 12px;">
                     <p style="font-size: 15px; margin-bottom: 12px;">Crie sua própria playlist</p>
@@ -340,7 +401,7 @@
                 </div>
             </div>
         </div>
-        
+       
         <!-- Main Content -->
         <div class="main">
             <div class="header">
@@ -349,38 +410,34 @@
                     <div style="width: 32px; height: 32px; background: #535353; border-radius: 50%;"></div>
                 </div>
             </div>
-            
-            <h1 class="greeting">Boa noite, ouvinte 🎵</h1>
-            
+           
+            <h1 class="greeting">Boa noite, <span id="username">Ouvinte</span> 🎵</h1>
+           
             <!-- Update Box -->
             <div style="background: #1f1f1f; border: 1px solid #1db954; border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
                 <div style="background: #1db954; color: black; padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600;">NOVO</div>
                 <div>
-                    <strong>Atualização:</strong> Adicionada a hit "A preguiça está demais" do Jenylson Júnior! 
+                    <strong>Atualização:</strong> Adicionada a hit "A preguiça está demais" do Jenylson Júnior!
                     <span style="color: #1db954; cursor: pointer;" onclick="alert('Mais atualizações em breve!')">Ver todas atualizações →</span>
                 </div>
             </div>
-            
+           
             <!-- Featured -->
             <div class="section">
                 <h2 class="section-title">Tocando agora na SpinQfiey</h2>
-                <div class="grid" id="featured-grid">
-                    <!-- Populated by JS -->
-                </div>
+                <div class="grid" id="featured-grid"></div>
             </div>
-            
+           
             <!-- Songs List -->
             <div class="section songs-list">
                 <h2 class="section-title">Suas músicas favoritas</h2>
-                <div id="songs-list">
-                    <!-- Populated by JS -->
-                </div>
+                <div id="songs-list"></div>
             </div>
         </div>
     </div>
-    
+   
     <!-- Bottom Player -->
-    <div class="player">
+    <div class="player" id="player">
         <div class="now-playing">
             <img id="player-album" src="https://picsum.photos/id/1015/300/300" alt="Album">
             <div class="track-info">
@@ -389,14 +446,14 @@
             </div>
             <button class="btn" onclick="toggleLike()">❤️</button>
         </div>
-        
+       
         <div class="controls">
             <div class="playback-buttons">
                 <button class="btn" onclick="skipBackward()" title="Voltar 15s">⤆</button>
                 <button class="btn" onclick="togglePlay()" id="play-btn">▶</button>
                 <button class="btn" onclick="skipForward()" title="Avançar 15s">⤇</button>
             </div>
-            
+           
             <div class="progress-container">
                 <span id="current-time">0:00</span>
                 <div class="progress" onclick="seek(event)">
@@ -404,8 +461,7 @@
                 </div>
                 <span id="duration">3:20</span>
             </div>
-            
-            <!-- Speed Controls -->
+           
             <div class="speed-controls">
                 <button class="speed-btn" onclick="setSpeed(0.5)" id="speed-05">0.5x</button>
                 <button class="speed-btn active" onclick="setSpeed(1)" id="speed-1">1x</button>
@@ -413,85 +469,61 @@
                 <button class="speed-btn" onclick="setSpeed(2)" id="speed-2">2x</button>
             </div>
         </div>
-        
+       
         <div class="volume">
             <span>🔊</span>
             <input type="range" min="0" max="100" value="80" style="width: 120px;" oninput="setVolume(this.value)">
         </div>
     </div>
-    
-    <audio id="audio-player" ontimeupdate="updateProgress()" onended="nextTrack()">
-    </audio>
-    
+   
+    <audio id="audio-player" ontimeupdate="updateProgress()" onended="nextTrack()"></audio>
+   
     <script>
+        const CLIENT_ID = "SEU_CLIENT_ID_AQUI"; // ← TROQUE AQUI
+
         const songs = [
-            {
-                id: 1,
-                title: "Blinding Lights",
-                artist: "The Weeknd",
-                album: "After Hours",
-                duration: "3:20",
-                cover: "https://picsum.photos/id/1015/300/300",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            },
-            {
-                id: 2,
-                title: "Levitating",
-                artist: "Dua Lipa",
-                album: "Future Nostalgia",
-                duration: "3:38",
-                cover: "https://picsum.photos/id/201/300/300",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-            },
-            {
-                id: 3,
-                title: "Watermelon Sugar",
-                artist: "Harry Styles",
-                album: "Fine Line",
-                duration: "2:54",
-                cover: "https://picsum.photos/id/237/300/300",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-            },
-            {
-                id: 4,
-                title: "Stay",
-                artist: "The Kid LAROI ft. Justin Bieber",
-                album: "F*CK LOVE 3",
-                duration: "2:21",
-                cover: "https://picsum.photos/id/870/300/300",
-                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
-            },
-            {
-                id: 5,
-                title: "A preguiça está demais",
-                artist: "Jenylson Júnior",
-                album: "Viral TikTok",
-                duration: "1:01",
-                cover: "https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-p-0037/ogC42D5gIAcuvzBEfBkEsL87ZIDRgTF7pnB8Af~tplv-tiktokx-origin.image?dr=10395&x-expires=1782694800&x-signature=uoUK6im0PJFT1%2FQcRZ0h7gciKdA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a",
-                src: "Download.mp3"
-            }
+            { id: 1, title: "Blinding Lights", artist: "The Weeknd", album: "After Hours", duration: "3:20", cover: "https://picsum.photos/id/1015/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { id: 2, title: "Levitating", artist: "Dua Lipa", album: "Future Nostalgia", duration: "3:38", cover: "https://picsum.photos/id/201/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { id: 3, title: "Watermelon Sugar", artist: "Harry Styles", album: "Fine Line", duration: "2:54", cover: "https://picsum.photos/id/237/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { id: 4, title: "Stay", artist: "The Kid LAROI ft. Justin Bieber", album: "F*CK LOVE 3", duration: "2:21", cover: "https://picsum.photos/id/870/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+            { id: 5, title: "A preguiça está demais", artist: "Jenylson Júnior", album: "Viral TikTok", duration: "1:01", cover: "https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-p-0037/ogC42D5gIAcuvzBEfBkEsL87ZIDRgTF7pnB8Af~tplv-tiktokx-origin.image?dr=10395&x-expires=1782694800&x-signature=uoUK6im0PJFT1%2FQcRZ0h7gciKdA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a", src: "Download.mp3" }
         ];
-        
+       
         let currentSongIndex = 0;
         let isPlaying = false;
         let audio = document.getElementById('audio-player');
         let progressBar = document.getElementById('progress-bar');
         let currentTimeEl = document.getElementById('current-time');
         let durationEl = document.getElementById('duration');
-        
+       
+        function loginWithDiscord() {
+            if (CLIENT_ID === "SEU_CLIENT_ID_AQUI") {
+                alert("Coloque seu Client ID do Discord no lugar de 'SEU_CLIENT_ID_AQUI'");
+                return;
+            }
+            const REDIRECT_URI = window.location.href;
+            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
+            window.location.href = authUrl;
+        }
+
+        function fakeLogin() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'flex';
+        }
+
         function loadSong(index) {
             const song = songs[index];
             document.getElementById('player-title').textContent = song.title;
             document.getElementById('player-artist').textContent = song.artist;
             document.getElementById('player-album').src = song.cover;
             document.getElementById('duration').textContent = song.duration;
-            
+           
             audio.src = song.src;
             audio.load();
             currentSongIndex = index;
             updateSongList();
         }
-        
+       
         function togglePlay() {
             if (isPlaying) {
                 audio.pause();
@@ -502,7 +534,7 @@
             }
             isPlaying = !isPlaying;
         }
-        
+       
         function updateProgress() {
             if (audio.duration) {
                 const progressPercent = (audio.currentTime / audio.duration) * 100;
@@ -510,19 +542,19 @@
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             }
         }
-        
+       
         function seek(e) {
             const progressContainer = e.currentTarget;
             const percent = e.offsetX / progressContainer.offsetWidth;
             audio.currentTime = percent * audio.duration;
         }
-        
+       
         function formatTime(seconds) {
             const min = Math.floor(seconds / 60);
             const sec = Math.floor(seconds % 60);
             return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
-        
+       
         function setSpeed(speed) {
             audio.playbackRate = speed;
             document.querySelectorAll('.speed-btn').forEach(btn => {
@@ -530,40 +562,40 @@
                 if (parseFloat(btn.textContent) === speed) btn.classList.add('active');
             });
         }
-        
+       
         function skipForward() {
             audio.currentTime += 15;
         }
-        
+       
         function skipBackward() {
             audio.currentTime -= 15;
         }
-        
+       
         function setVolume(vol) {
             audio.volume = vol / 100;
         }
-        
+       
         function toggleLike() {
             alert("Adicionado aos favoritos ❤️");
         }
-        
+       
         function nextTrack() {
             currentSongIndex = (currentSongIndex + 1) % songs.length;
             loadSong(currentSongIndex);
             if (isPlaying) audio.play();
         }
-        
+       
         function playSong(index) {
             loadSong(index);
             audio.play();
             isPlaying = true;
             document.getElementById('play-btn').innerHTML = '❚❚';
         }
-        
+       
         function updateSongList() {
             const container = document.getElementById('songs-list');
             container.innerHTML = '';
-            
+           
             songs.forEach((song, index) => {
                 const isCurrent = index === currentSongIndex;
                 const row = document.createElement('div');
@@ -583,11 +615,11 @@
                 container.appendChild(row);
             });
         }
-        
+       
         function renderFeatured() {
             const grid = document.getElementById('featured-grid');
             grid.innerHTML = '';
-            
+           
             songs.forEach((song, index) => {
                 const card = document.createElement('div');
                 card.className = 'card';
@@ -602,24 +634,34 @@
                 grid.appendChild(card);
             });
         }
-        
+       
         function searchMusic(query) {
             if (!query) return;
             alert(`Buscando por "${query}"... (demo)`);
         }
-        
+       
         window.onload = function() {
             renderFeatured();
             updateSongList();
             loadSong(0);
-            
+           
             document.addEventListener('keydown', (e) => {
                 if (e.code === 'Space') {
                     e.preventDefault();
                     togglePlay();
                 }
             });
-            
+
+            // Verifica se voltou do Discord
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('code')) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-app').style.display = 'flex';
+                document.getElementById('username').textContent = "Jenylson";
+            } else {
+                document.getElementById('login-screen').style.display = 'flex';
+            }
+           
             console.log("%cSpinQfiey carregado com sucesso! 🎧", "color: #1db954; font-size: 16px; font-weight: bold;");
         };
     </script>
