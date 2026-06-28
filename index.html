@@ -501,7 +501,7 @@
                 alert("Coloque seu Client ID do Discord no lugar de 'SEU_CLIENT_ID_AQUI'");
                 return;
             }
-            const REDIRECT_URI = "http://127.0.0.1";
+            const REDIRECT_URI = "https://meuscripts1.github.io/SpinQfiey";
             const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
             window.location.href = authUrl;
         }
