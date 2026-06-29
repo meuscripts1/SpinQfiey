@@ -29,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* === LOGIN SCREEN === */
+        /* TELA DE LOGIN */
         .login-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -37,9 +37,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
+            z-index: 1000;
         }
-
         .login-box {
             background: #181818;
             padding: 50px 60px;
@@ -48,14 +47,12 @@
             width: 420px;
             border: 1px solid #333;
         }
-
         .logo-big {
             font-family: 'Playfair Display', serif;
             font-size: 52px;
             color: var(--accent);
             margin-bottom: 20px;
         }
-
         .discord-btn {
             background: #5865F2;
             color: white;
@@ -67,20 +64,13 @@
             width: 100%;
             margin: 20px 0;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
         }
-
         .discord-btn:hover {
             background: #4752C4;
-            transform: translateY(-2px);
         }
-
         .app { display: none; flex: 1; height: 100vh; overflow: hidden; }
 
-        /* Seus estilos originais continuam aqui */
+        /* Seus estilos originais */
         .sidebar {
             width: 260px;
             background: var(--sidebar);
@@ -89,7 +79,7 @@
             flex-direction: column;
             gap: 30px;
         }
-       
+      
         .logo {
             font-family: 'Playfair Display', serif;
             font-size: 32px;
@@ -97,11 +87,11 @@
             color: var(--accent);
             letter-spacing: -2px;
         }
-       
+      
         .nav {
             list-style: none;
         }
-       
+      
         .nav li {
             padding: 12px 16px;
             border-radius: 8px;
@@ -112,25 +102,25 @@
             align-items: center;
             gap: 16px;
         }
-       
+      
         .nav li:hover, .nav li.active {
             background: #282828;
         }
-       
+      
         .main {
             flex: 1;
             background: linear-gradient(180deg, #1f1f1f 0%, var(--bg) 30%);
             padding: 30px;
             overflow-y: auto;
         }
-       
+      
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
         }
-       
+      
         .search {
             background: rgba(255,255,255,0.1);
             border: none;
@@ -140,28 +130,28 @@
             color: white;
             font-size: 16px;
         }
-       
+      
         .greeting {
             font-size: 32px;
             font-weight: 600;
         }
-       
+      
         .section {
             margin-bottom: 50px;
         }
-       
+      
         .section-title {
             font-size: 26px;
             margin-bottom: 20px;
             font-weight: 600;
         }
-       
+      
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 24px;
         }
-       
+      
         .card {
             background: rgba(255,255,255,0.05);
             border-radius: 12px;
@@ -169,34 +159,33 @@
             transition: all 0.3s;
             cursor: pointer;
         }
-       
+      
         .card:hover {
             transform: translateY(-8px);
             background: rgba(255,255,255,0.1);
         }
-       
+      
         .card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
         }
-       
+      
         .card-info {
             padding: 16px;
         }
-       
+      
         .card-title {
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 4px;
         }
-       
+      
         .card-subtitle {
             font-size: 14px;
             color: var(--text-secondary);
         }
-       
-        /* Player */
+      
         .player {
             height: 90px;
             background: #181818;
@@ -207,30 +196,30 @@
             gap: 20px;
             z-index: 100;
         }
-       
+      
         .now-playing {
             display: flex;
             align-items: center;
             width: 300px;
             gap: 16px;
         }
-       
+      
         .now-playing img {
             width: 56px;
             height: 56px;
             border-radius: 6px;
             object-fit: cover;
         }
-       
+      
         .track-info h4 {
             font-size: 15px;
         }
-       
+      
         .track-info p {
             font-size: 13px;
             color: var(--text-secondary);
         }
-       
+      
         .controls {
             flex: 1;
             display: flex;
@@ -238,13 +227,13 @@
             align-items: center;
             gap: 8px;
         }
-       
+      
         .playback-buttons {
             display: flex;
             align-items: center;
             gap: 24px;
         }
-       
+      
         .btn {
             background: none;
             border: none;
@@ -253,12 +242,12 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-       
+      
         .btn:hover {
             color: var(--accent);
             transform: scale(1.1);
         }
-       
+      
         .play-btn {
             background: white;
             color: black;
@@ -270,7 +259,7 @@
             justify-content: center;
             font-size: 20px;
         }
-       
+      
         .progress-container {
             width: 100%;
             max-width: 600px;
@@ -279,7 +268,7 @@
             gap: 12px;
             font-size: 13px;
         }
-       
+      
         .progress {
             flex: 1;
             height: 4px;
@@ -288,7 +277,7 @@
             position: relative;
             cursor: pointer;
         }
-       
+      
         .progress-bar {
             height: 100%;
             background: var(--accent);
@@ -296,7 +285,7 @@
             border-radius: 2px;
             position: relative;
         }
-       
+      
         .progress-bar::after {
             content: '';
             position: absolute;
@@ -310,24 +299,24 @@
             opacity: 0;
             transition: opacity 0.2s;
         }
-       
+      
         .progress:hover .progress-bar::after {
             opacity: 1;
         }
-       
+      
         .volume {
             display: flex;
             align-items: center;
             gap: 8px;
             width: 200px;
         }
-       
+      
         .speed-controls {
             display: flex;
             gap: 8px;
             margin-top: 6px;
         }
-       
+      
         .speed-btn {
             font-size: 12px;
             padding: 4px 10px;
@@ -337,16 +326,16 @@
             color: var(--text-secondary);
             cursor: pointer;
         }
-       
+      
         .speed-btn.active {
             background: var(--accent);
             color: black;
         }
-       
+      
         .songs-list {
             margin-top: 40px;
         }
-       
+      
         .song-row {
             display: flex;
             align-items: center;
@@ -355,11 +344,11 @@
             cursor: pointer;
             transition: background 0.2s;
         }
-       
+      
         .song-row:hover {
             background: #282828;
         }
-       
+      
         .song-row.playing {
             background: rgba(29, 185, 84, 0.2);
         }
@@ -367,18 +356,18 @@
 </head>
 <body>
 
-    <!-- LOGIN SCREEN -->
+    <!-- TELA DE LOGIN -->
     <div class="login-screen" id="login-screen">
         <div class="login-box">
             <div class="logo-big">SpinQfiey</div>
             <h2>Bem-vindo de volta!</h2>
-            <p style="color: #b3b3b3; margin: 15px 0 40px;">Faça login para salvar suas músicas</p>
-            
+            <p style="color: #b3b3b3; margin: 15px 0 40px;">Faça login para continuar ouvindo</p>
+           
             <button class="discord-btn" onclick="loginWithDiscord()">
                 🔵 Entrar com Discord
             </button>
-            
-            <p style="margin-top: 30px; color: #666; cursor: pointer;" onclick="fakeLogin()">Continuar sem login (demo)</p>
+           
+            <p style="margin-top: 30px; color: #666; cursor: pointer;" onclick="fakeLogin()">Continuar como convidado</p>
         </div>
     </div>
 
@@ -411,7 +400,7 @@
                 </div>
             </div>
            
-            <h1 class="greeting">Boa noite, <span id="username">Ouvinte</span> 🎵</h1>
+            <h1 class="greeting">Boa noite, <span id="username">ouvinte</span> 🎵</h1>
            
             <!-- Update Box -->
             <div style="background: #1f1f1f; border: 1px solid #1db954; border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
@@ -479,15 +468,54 @@
     <audio id="audio-player" ontimeupdate="updateProgress()" onended="nextTrack()"></audio>
    
     <script>
-        const CLIENT_ID = "1518033470725554388"; // ← TROQUE AQUI
+        const CLIENT_ID = "1518033470725554388";
 
         const songs = [
-            { id: 1, title: "Blinding Lights", artist: "The Weeknd", album: "After Hours", duration: "3:20", cover: "https://picsum.photos/id/1015/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { id: 2, title: "Levitating", artist: "Dua Lipa", album: "Future Nostalgia", duration: "3:38", cover: "https://picsum.photos/id/201/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { id: 3, title: "Watermelon Sugar", artist: "Harry Styles", album: "Fine Line", duration: "2:54", cover: "https://picsum.photos/id/237/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { id: 4, title: "Stay", artist: "The Kid LAROI ft. Justin Bieber", album: "F*CK LOVE 3", duration: "2:21", cover: "https://picsum.photos/id/870/300/300", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
-            { id: 5, title: "A preguiça está demais", artist: "Jenylson Júnior", album: "Viral TikTok", duration: "1:01", cover: "https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-p-0037/ogC42D5gIAcuvzBEfBkEsL87ZIDRgTF7pnB8Af~tplv-tiktokx-origin.image?dr=10395&x-expires=1782694800&x-signature=uoUK6im0PJFT1%2FQcRZ0h7gciKdA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a", src: "Download.mp3" }
-            { id: 6, title: "Musica Meme", artist: "_smouk7", album: "TikTok Viral", duration: "0:30", cover: "Cheia.png", src: "Download (1) .mp3"
+            {
+                id: 1,
+                title: "Blinding Lights",
+                artist: "The Weeknd",
+                album: "After Hours",
+                duration: "3:20",
+                cover: "https://picsum.photos/id/1015/300/300",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            },
+            {
+                id: 2,
+                title: "Levitating",
+                artist: "Dua Lipa",
+                album: "Future Nostalgia",
+                duration: "3:38",
+                cover: "https://picsum.photos/id/201/300/300",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+            },
+            {
+                id: 3,
+                title: "Watermelon Sugar",
+                artist: "Harry Styles",
+                album: "Fine Line",
+                duration: "2:54",
+                cover: "https://picsum.photos/id/237/300/300",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+            },
+            {
+                id: 4,
+                title: "Stay",
+                artist: "The Kid LAROI ft. Justin Bieber",
+                album: "F*CK LOVE 3",
+                duration: "2:21",
+                cover: "https://picsum.photos/id/870/300/300",
+                src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+            },
+            {
+                id: 5,
+                title: "A preguiça está demais",
+                artist: "Jenylson Júnior",
+                album: "Viral TikTok",
+                duration: "1:01",
+                cover: "https://p16-common-sign.tiktokcdn-eu.com/tos-alisg-p-0037/ogC42D5gIAcuvzBEfBkEsL87ZIDRgTF7pnB8Af~tplv-tiktokx-origin.image?dr=10395&x-expires=1782694800&x-signature=uoUK6im0PJFT1%2FQcRZ0h7gciKdA%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=no1a",
+                src: "Download.mp3"
+            }
         ];
        
         let currentSongIndex = 0;
@@ -498,11 +526,7 @@
         let durationEl = document.getElementById('duration');
        
         function loginWithDiscord() {
-            if (CLIENT_ID === "Pg3oBca7nS3yghJLiljSdj1utwi4lp1z") {
-                alert("Coloque seu Client ID do Discord no lugar de 'SEU_CLIENT_ID_AQUI'");
-                return;
-            }
-            const REDIRECT_URI = "https://meuscripts1.github.io/SpinQfiey/";
+            const REDIRECT_URI = "https://meuscripts1.github.io/SpinQfiey";
             const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
             window.location.href = authUrl;
         }
@@ -510,6 +534,7 @@
         function fakeLogin() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
+            document.getElementById('player').style.display = 'flex';
         }
 
         function loadSong(index) {
@@ -652,13 +677,13 @@
                     togglePlay();
                 }
             });
-
-            // Verifica se voltou do Discord
+           
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('code')) {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'flex';
-                document.getElementById('username').textContent = "Jenylson";
+                document.getElementById('player').style.display = 'flex';
+                document.getElementById('username').textContent = "Logado com Discord";
             } else {
                 document.getElementById('login-screen').style.display = 'flex';
             }
