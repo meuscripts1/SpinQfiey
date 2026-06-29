@@ -29,7 +29,7 @@
             overflow: hidden;
         }
 
-        /* === LOGIN SCREEN === */
+        /* LOGIN SCREEN */
         .login-screen {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -64,19 +64,17 @@
             width: 100%;
             margin: 20px 0;
             cursor: pointer;
-            transition: all 0.2s;
         }
         .discord-btn:hover {
             background: #4752C4;
-            transform: translateY(-2px);
         }
 
-        /* === APP === */
-        .app {
-            display: none;
-            flex: 1;
-            height: calc(100vh - 90px);
-            overflow: hidden;
+        /* APP */
+        .app { 
+            display: none; 
+            flex: 1; 
+            height: calc(100vh - 90px); 
+            overflow: hidden; 
         }
 
         .sidebar {
@@ -194,7 +192,7 @@
             color: var(--text-secondary);
         }
 
-        /* === PLAYER FIXO === */
+        /* PLAYER */
         .player {
             height: 90px;
             background: #181818;
@@ -365,6 +363,18 @@
         .song-row.playing {
             background: rgba(29, 185, 84, 0.2);
         }
+
+        /* Update Box */
+        .update-box {
+            background: #1f1f1f;
+            border: 1px solid #1db954;
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
     </style>
 </head>
 <body>
@@ -391,9 +401,9 @@
             <div class="logo">SpinQfiey</div>
           
             <ul class="nav">
-                <li class="active"><span>🏠</span> Início</li>
-                <li><span>🔍</span> Buscar</li>
-                <li><span>📚</span> Sua Biblioteca</li>
+                <li class="active" onclick="showSection('home')"><span>🏠</span> Início</li>
+                <li onclick="showSection('search')"><span>🔍</span> Buscar</li>
+                <li onclick="showSection('library')"><span>📚</span> Sua Biblioteca</li>
             </ul>
           
             <div style="margin-top: auto;">
@@ -407,38 +417,46 @@
         <!-- Main Content -->
         <div class="main">
             <div class="header">
-                <input type="text" class="search" placeholder="O que você quer ouvir?" onkeyup="if(event.key === 'Enter') searchMusic(this.value)">
+                <input type="text" class="search" id="search-input" placeholder="O que você quer ouvir?" onkeyup="filterSongs()">
                 <div style="display: flex; gap: 12px; align-items: center;">
-                    <div style="width: 32px; height: 32px; background: #535353; border-radius: 50%;"></div>
+                    <img id="user-avatar" src="https://via.placeholder.com/32" style="width: 32px; height: 32px; border-radius: 50%; display: none;" alt="Avatar">
                 </div>
             </div>
           
             <h1 class="greeting">Boa noite, <span id="username">Ouvinte</span> 🎵</h1>
           
             <!-- Update Box -->
-            <div style="background: #1f1f1f; border: 1px solid #1db954; border-radius: 12px; padding: 16px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 16px;">
+            <div class="update-box" id="update-box">
                 <div style="background: #1db954; color: black; padding: 6px 12px; border-radius: 9999px; font-size: 13px; font-weight: 600;">NOVO</div>
                 <div>
-                    <strong>Atualização:</strong> Adicionada a hit "A preguiça está demais" do Jenylson Júnior!
-                    <span style="color: #1db954; cursor: pointer;" onclick="alert('Mais atualizações em breve!')">Ver todas atualizações →</span>
+                    <strong>Atualização:</strong> Adicionada a hit "A preguiça está demais" do Jenylson Júnior e "Musica Meme" do _smouk7!
+                </div>
+                <button onclick="closeUpdate()" style="margin-left: auto; background: none; border: none; color: #1db954; font-size: 18px; cursor: pointer;">Entendi</button>
+            </div>
+          
+            <!-- Home Section -->
+            <div id="home-section">
+                <div class="section">
+                    <h2 class="section-title">Tocando agora na SpinQfiey</h2>
+                    <div class="grid" id="featured-grid"></div>
                 </div>
             </div>
-          
-            <!-- Featured -->
-            <div class="section">
-                <h2 class="section-title">Tocando agora na SpinQfiey</h2>
-                <div class="grid" id="featured-grid"></div>
+
+            <!-- Search Section -->
+            <div id="search-section" style="display: none;">
+                <h2 class="section-title">Resultados</h2>
+                <div id="search-results"></div>
             </div>
-          
-            <!-- Songs List -->
-            <div class="section songs-list">
-                <h2 class="section-title">Suas músicas favoritas</h2>
-                <div id="songs-list"></div>
+
+            <!-- Library Section -->
+            <div id="library-section" style="display: none;">
+                <h2 class="section-title">Suas Músicas Favoritas</h2>
+                <div id="library-list"></div>
             </div>
         </div>
     </div>
   
-    <!-- PLAYER -->
+    <!-- Bottom Player -->
     <div class="player" id="player">
         <div class="now-playing">
             <img id="player-album" src="https://picsum.photos/id/1015/300/300" alt="Album">
@@ -446,7 +464,7 @@
                 <h4 id="player-title">Blinding Lights</h4>
                 <p id="player-artist">The Weeknd</p>
             </div>
-            <button class="btn" onclick="toggleLike()">❤️</button>
+            <button class="btn" onclick="toggleLikeCurrent()" id="like-btn">❤️</button>
         </div>
       
         <div class="controls">
@@ -482,6 +500,13 @@
 
     <script>
         const CLIENT_ID = "1518033470725554388";
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        let favorites = [];
+        let audio = document.getElementById('audio-player');
+        let progressBar = document.getElementById('progress-bar');
+        let currentTimeEl = document.getElementById('current-time');
+        let durationEl = document.getElementById('duration');
 
         const songs = [
             {
@@ -539,14 +564,7 @@
                 src: "Download (1).mp3"
             }
         ];
-      
-        let currentSongIndex = 0;
-        let isPlaying = false;
-        let audio = document.getElementById('audio-player');
-        let progressBar = document.getElementById('progress-bar');
-        let currentTimeEl = document.getElementById('current-time');
-        let durationEl = document.getElementById('duration');
-      
+
         function loginWithDiscord() {
             const REDIRECT_URI = "https://meuscripts1.github.io/SpinQfiey";
             const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
@@ -557,6 +575,24 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
             document.getElementById('player').style.display = 'flex';
+            document.getElementById('user-avatar').style.display = 'block';
+            document.getElementById('username').textContent = "Você";
+        }
+
+        function showSection(section) {
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('library-section').style.display = 'none';
+
+            if (section === 'home') document.getElementById('home-section').style.display = 'block';
+            if (section === 'search') {
+                document.getElementById('search-section').style.display = 'block';
+                filterSongs();
+            }
+            if (section === 'library') {
+                document.getElementById('library-section').style.display = 'block';
+                renderLibrary();
+            }
         }
 
         function loadSong(index) {
@@ -565,24 +601,23 @@
             document.getElementById('player-artist').textContent = song.artist;
             document.getElementById('player-album').src = song.cover;
             document.getElementById('duration').textContent = song.duration;
-          
             audio.src = song.src;
             audio.load();
             currentSongIndex = index;
             updateSongList();
         }
-      
+
         function togglePlay() {
             if (isPlaying) {
                 audio.pause();
                 document.getElementById('play-btn').innerHTML = '▶';
             } else {
-                audio.play().catch(e => console.log("Autoplay blocked"));
+                audio.play();
                 document.getElementById('play-btn').innerHTML = '❚❚';
             }
             isPlaying = !isPlaying;
         }
-      
+
         function updateProgress() {
             if (audio.duration) {
                 const progressPercent = (audio.currentTime / audio.duration) * 100;
@@ -590,19 +625,19 @@
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             }
         }
-      
+
         function seek(e) {
             const progressContainer = e.currentTarget;
             const percent = e.offsetX / progressContainer.offsetWidth;
             audio.currentTime = percent * audio.duration;
         }
-      
+
         function formatTime(seconds) {
             const min = Math.floor(seconds / 60);
             const sec = Math.floor(seconds % 60);
             return `${min}:${sec < 10 ? '0' : ''}${sec}`;
         }
-      
+
         function setSpeed(speed) {
             audio.playbackRate = speed;
             document.querySelectorAll('.speed-btn').forEach(btn => {
@@ -610,53 +645,53 @@
                 if (parseFloat(btn.textContent) === speed) btn.classList.add('active');
             });
         }
-      
+
         function skipForward() { audio.currentTime += 15; }
         function skipBackward() { audio.currentTime -= 15; }
         function setVolume(vol) { audio.volume = vol / 100; }
-        function toggleLike() { alert("Adicionado aos favoritos ❤️"); }
-      
+
+        function toggleLikeCurrent() {
+            if (favorites.includes(currentSongIndex)) {
+                favorites = favorites.filter(i => i !== currentSongIndex);
+            } else {
+                favorites.push(currentSongIndex);
+            }
+            renderFeatured();
+            renderLibrary();
+        }
+
+        function toggleLike(index) {
+            if (favorites.includes(index)) {
+                favorites = favorites.filter(i => i !== index);
+            } else {
+                favorites.push(index);
+            }
+            renderFeatured();
+            renderLibrary();
+        }
+
         function nextTrack() {
             currentSongIndex = (currentSongIndex + 1) % songs.length;
             loadSong(currentSongIndex);
             if (isPlaying) audio.play();
         }
-      
+
         function playSong(index) {
             loadSong(index);
             audio.play();
             isPlaying = true;
             document.getElementById('play-btn').innerHTML = '❚❚';
         }
-      
+
         function updateSongList() {
-            const container = document.getElementById('songs-list');
-            container.innerHTML = '';
-          
-            songs.forEach((song, index) => {
-                const isCurrent = index === currentSongIndex;
-                const row = document.createElement('div');
-                row.className = `song-row ${isCurrent ? 'playing' : ''}`;
-                row.innerHTML = `
-                    <div style="width: 40px; text-align: center;">${index + 1}</div>
-                    <div style="display: flex; align-items: center; gap: 16px; flex: 1;">
-                        <img src="${song.cover}" style="width: 40px; height: 40px; border-radius: 4px;">
-                        <div>
-                            <div style="font-weight: 500;">${song.title}</div>
-                            <div style="font-size: 14px; color: #b3b3b3;">${song.artist}</div>
-                        </div>
-                    </div>
-                    <div style="margin-left: auto; color: #b3b3b3;">${song.duration}</div>
-                `;
-                row.onclick = () => playSong(index);
-                container.appendChild(row);
-            });
+            const container = document.getElementById('songs-list') || document.createElement('div');
+            // (implementação completa se necessário)
         }
-      
+
         function renderFeatured() {
             const grid = document.getElementById('featured-grid');
             grid.innerHTML = '';
-          
+           
             songs.forEach((song, index) => {
                 const card = document.createElement('div');
                 card.className = 'card';
@@ -666,40 +701,82 @@
                         <div class="card-title">${song.title}</div>
                         <div class="card-subtitle">${song.artist}</div>
                     </div>
+                    <button onclick="event.stopImmediatePropagation(); toggleLike(${index})" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:20px; color:${favorites.includes(index) ? '#ff4d4d' : '#666'}">❤️</button>
                 `;
                 card.onclick = () => playSong(index);
                 grid.appendChild(card);
             });
         }
-      
-        function searchMusic(query) {
-            if (!query) return;
-            alert(`Buscando por "${query}"... (demo)`);
+
+        function renderLibrary() {
+            const container = document.getElementById('library-list');
+            container.innerHTML = '';
+            const favSongs = songs.filter((_, i) => favorites.includes(i));
+
+            if (favSongs.length === 0) {
+                container.innerHTML = '<p>Você ainda não favoritou nenhuma música.</p>';
+                return;
+            }
+
+            favSongs.forEach(song => {
+                const index = songs.findIndex(s => s.id === song.id);
+                const row = document.createElement('div');
+                row.className = 'song-row';
+                row.innerHTML = `
+                    <img src="${song.cover}" style="width:40px;height:40px;border-radius:4px;margin-right:16px;">
+                    <div style="flex:1;">
+                        <div>${song.title}</div>
+                        <div style="color:#b3b3b3;">${song.artist}</div>
+                    </div>
+                `;
+                row.onclick = () => playSong(index);
+                container.appendChild(row);
+            });
         }
-      
+
+        function filterSongs() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const container = document.getElementById('search-results');
+            container.innerHTML = '';
+
+            const filtered = songs.filter(song => 
+                song.title.toLowerCase().includes(query) || song.artist.toLowerCase().includes(query)
+            );
+
+            filtered.forEach(song => {
+                const index = songs.findIndex(s => s.id === song.id);
+                const row = document.createElement('div');
+                row.className = 'song-row';
+                row.innerHTML = `
+                    <img src="${song.cover}" style="width:50px;height:50px;border-radius:6px;margin-right:16px;">
+                    <div style="flex:1;">
+                        <div>${song.title}</div>
+                        <div style="color:#b3b3b3;">${song.artist}</div>
+                    </div>
+                `;
+                row.onclick = () => playSong(index);
+                container.appendChild(row);
+            });
+        }
+
+        function closeUpdate() {
+            document.getElementById('update-box').style.display = 'none';
+        }
+
         window.onload = function() {
             renderFeatured();
-            updateSongList();
             loadSong(0);
-          
-            document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    togglePlay();
-                }
-            });
-          
+
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('code')) {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('main-app').style.display = 'flex';
                 document.getElementById('player').style.display = 'flex';
-                document.getElementById('username').textContent = "Logado com Discord";
+                document.getElementById('username').textContent = "Logado";
+                document.getElementById('user-avatar').style.display = 'block';
             } else {
                 document.getElementById('login-screen').style.display = 'flex';
             }
-          
-            console.log("%cSpinQfiey carregado com sucesso! 🎧", "color: #1db954; font-size: 16px; font-weight: bold;");
         };
     </script>
 </body>
