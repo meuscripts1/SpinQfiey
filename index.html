@@ -32,7 +32,7 @@
         }
         body.loaded { opacity: 1; }
 
-        /* RESPONSIVO CELULAR */
+        /* RESPONSIVO PARA CELULAR */
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: 60px; flex-direction: row; padding: 10px; position: fixed; top: 0; z-index: 150; }
             .main { padding: 80px 15px 100px 15px; }
@@ -40,7 +40,6 @@
             .player { height: 80px; padding: 0 10px; }
             .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
             .search { width: 100%; }
-            .now-playing { width: 140px; }
         }
 
         /* LOGIN SCREEN */
@@ -408,6 +407,24 @@
             opacity: 1;
             transform: translateX(-50%) translateY(-10px);
         }
+
+        /* MENU DO PERFIL */
+        .profile-menu {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 12px;
+            width: 240px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            display: none;
+            z-index: 2000;
+        }
+        .profile-menu.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -451,8 +468,18 @@
         <div class="main">
             <div class="header">
                 <input type="text" class="search" id="search-input" placeholder="O que você quer ouvir?" onkeyup="filterSongs()">
-                <div style="display: flex; gap: 12px; align-items: center;">
-                    <img id="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" style="width: 32px; height: 32px; border-radius: 50%; display: none;" alt="Avatar">
+                <div style="display: flex; gap: 12px; align-items: center; position: relative;">
+                    <img id="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" style="width: 32px; height: 32px; border-radius: 50%; display: none; cursor: pointer;" onclick="toggleProfileMenu()" alt="Avatar">
+                    <!-- MENU DO PERFIL -->
+                    <div class="profile-menu" id="profile-menu">
+                        <div style="text-align:center;">
+                            <img id="profile-pic-big" src="https://cdn.discordapp.com/embed/avatars/0.png" style="width:80px;height:80px;border-radius:50%;margin:0 auto 12px;border:3px solid #1db954;" alt="">
+                            <h3 id="profile-name">Seu Nick</h3>
+                            <p id="profile-date" style="color:#b3b3b3;font-size:14px;">Conta criada em 29/06/2026</p>
+                        </div>
+                        <button onclick="logout()" style="width:100%;padding:12px;background:#ff4444;color:white;border:none;border-radius:8px;margin-top:10px;cursor:pointer;">Sair</button>
+                        <button onclick="deleteAccount()" style="width:100%;padding:12px;background:#333;color:white;border:none;border-radius:8px;margin-top:8px;cursor:pointer;">Deletar Conta</button>
+                    </div>
                 </div>
             </div>
       
@@ -574,6 +601,21 @@
             document.getElementById('search-section').style.display = section === 'search' ? 'block' : 'none';
             document.getElementById('library-section').style.display = section === 'library' ? 'block' : 'none';
             document.getElementById('history-section').style.display = section === 'history' ? 'block' : 'none';
+        }
+        function toggleProfileMenu() {
+            const menu = document.getElementById('profile-menu');
+            menu.classList.toggle('show');
+        }
+        function logout() {
+            if (confirm("Deseja realmente sair?")) {
+                location.reload();
+            }
+        }
+        function deleteAccount() {
+            if (confirm("Tem certeza que deseja deletar a conta? Esta ação é irreversível!")) {
+                alert("Conta deletada (demo)");
+                location.reload();
+            }
         }
         function showNotification() {
             const notif = document.getElementById('notification');
